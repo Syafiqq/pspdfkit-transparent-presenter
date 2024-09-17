@@ -29,6 +29,9 @@ class ViewController: UIViewController {
 }
 
 class ViewController1: UIViewController {
+    private var btSavePng: UIButton!
+    private var document: Document!
+    private var pdfController: PDFViewController!
 
     private var documentURL: URL? {
         try? FileManager.default.url(
@@ -39,11 +42,36 @@ class ViewController1: UIViewController {
         )
     }
 
+    @objc func saveAnswer() {
+        guard let documentURL else {
+            return
+        }
+        let timestamp = Int(Date().timeIntervalSince1970)
+        let filename = "answer-\(timestamp).png"
+        let saveToPath = documentURL.appendingPathComponent(filename)
+
+        let pageIndex: PageIndex = 0
+        let imageSize = CGSize(width: view.frame.width, height: 500)
+        let clippedSize = CGRect(origin: CGPoint(x: 0, y: 250), size: CGSize(width: view.frame.width, height: 250))
+
+        let renderOptions = RenderOptions()
+
+        if let renderedImage = try? document.imageForPage(at: pageIndex, size: imageSize, clippedTo: clippedSize, annotations: nil, options: renderOptions) {
+
+            let imageData = renderedImage.pngData()
+            try? imageData?.write(to: saveToPath)
+
+            print("Saved annotated image to: \(saveToPath.absoluteString)")
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        initDesign()
+        btSavePng.setTitle("Save Answer", for: .normal)
+        btSavePng.addTarget(self, action: #selector(saveAnswer), for: .touchUpInside)
     }
-
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -99,6 +127,46 @@ class ViewController1: UIViewController {
         UsernameHelper.ask(forDefaultAnnotationUsernameIfNeeded: pdfController, completionBlock: { _ in
             pdfController.annotationToolbarController?.toggleToolbar(animated: true)
         })
+
+        self.document = document
+        self.pdfController = pdfController
     }
 }
 
+extension ViewController1 {
+    func initDesign() {
+        // MARK: View Initialization
+        let svButtonContainer = generateStackViewForContainerDesign()
+        let btSavePng = generateButtonDesign()
+
+        view.addSubview(svButtonContainer)
+        svButtonContainer.addArrangedSubview(btSavePng)
+
+        // MARK: View Constraints
+        svButtonContainer.snp.makeConstraints({
+            $0.bottom.leading.equalToSuperview()
+                .offset(-16)
+        })
+
+        // MARK: View Assign
+        self.btSavePng = btSavePng
+    }
+
+    private func generateStackViewForContainerDesign() -> UIStackView {
+        let view = UIStackView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.axis = .vertical
+        view.distribution = .fill
+        view.alignment = .fill
+        view.spacing = 8
+        return view
+    }
+
+    private func generateButtonDesign() -> UIButton {
+        let view = UIButton(type: .system)
+        view.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        view.backgroundColor = .green
+        view.setTitleColor(.black, for: .normal)
+        return view
+    }
+}
