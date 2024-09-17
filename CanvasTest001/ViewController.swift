@@ -75,7 +75,8 @@ class ViewController1: UIViewController {
             print(error)
         }
 
-        let pdfController = PDFViewController(document: Document(url: saveToPath)) {
+        let document = Document(url: saveToPath)
+        let pdfController = PDFViewController(document: document) {
             $0.isPageLabelEnabled = false
         }
 
