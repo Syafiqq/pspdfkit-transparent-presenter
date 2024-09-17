@@ -1,0 +1,16 @@
+PODS:
+  - "Canvas+ (3.0.4)"
+
+DEPENDENCIES:
+  - "Canvas+"
+
+SPEC REPOS:
+  trunk:
+    - "Canvas+"
+
+SPEC CHECKSUMS:
+  "Canvas+": d8e837ac72d0cb6f7a799bee0960757acc8f0da5
+
+PODFILE CHECKSUM: 7671e551e7dc138b05e8bf618c55ba95b335a627
+
+COCOAPODS: 1.15.2
