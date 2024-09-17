@@ -84,7 +84,7 @@ class ViewController1: UIViewController {
 
         // Create a configuration for an empty A4 size page with a white background color.
         let newPageConfiguration = PDFNewPageConfiguration(pageTemplate: PageTemplate.blank) {
-            $0.backgroundColor = UIColor.white
+            $0.backgroundColor = .clear
             $0.pageSize = CGSize(width: self.view.frame.width, height: 500) // A4 in points.
         }
 
@@ -106,6 +106,7 @@ class ViewController1: UIViewController {
         let document = Document(url: saveToPath)
         let pdfController = PDFViewController(document: document) {
             $0.isPageLabelEnabled = false
+            $0.backgroundColor = .clear
         }
 
         addChild(pdfController)
@@ -119,6 +120,8 @@ class ViewController1: UIViewController {
         }
         view.isOpaque = false
         view.backgroundColor = .white
+        pdfController.view.backgroundColor = .clear
+        pdfController.pdfController.view.backgroundColor = .clear
         pdfController.didMove(toParent: self)
 
         // If not in document view mode, it'll be weird.
@@ -138,7 +141,9 @@ extension ViewController1 {
         // MARK: View Initialization
         let svButtonContainer = generateStackViewForContainerDesign()
         let btSavePng = generateButtonDesign()
+        let vwQuestion = generateImageView()
 
+        view.addSubview(vwQuestion)
         view.addSubview(svButtonContainer)
         svButtonContainer.addArrangedSubview(btSavePng)
 
@@ -146,6 +151,10 @@ extension ViewController1 {
         svButtonContainer.snp.makeConstraints({
             $0.bottom.leading.equalToSuperview()
                 .offset(-16)
+        })
+        vwQuestion.snp.makeConstraints({
+            $0.top.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(vwQuestion.snp.width).multipliedBy(420.0 / 1038)
         })
 
         // MARK: View Assign
@@ -159,6 +168,14 @@ extension ViewController1 {
         view.distribution = .fill
         view.alignment = .fill
         view.spacing = 8
+        return view
+    }
+
+    private func generateImageView() -> UIImageView {
+        let view = UIImageView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.image = UIImage(named: "question")
+        view.isOpaque = true
         return view
     }
 
