@@ -1,16 +1,25 @@
 PODS:
   - "Canvas+ (3.0.4)"
+  - PSPDFKit (14.0.0):
+    - PSPDFKit/Core (= 14.0.0)
+  - PSPDFKit/Core (14.0.0)
 
 DEPENDENCIES:
   - "Canvas+"
+  - PSPDFKit (from `https://my.pspdfkit.com/pspdfkit-ios/latest.podspec`)
 
 SPEC REPOS:
   trunk:
     - "Canvas+"
 
+EXTERNAL SOURCES:
+  PSPDFKit:
+    :podspec: https://my.pspdfkit.com/pspdfkit-ios/latest.podspec
+
 SPEC CHECKSUMS:
   "Canvas+": d8e837ac72d0cb6f7a799bee0960757acc8f0da5
+  PSPDFKit: 51585053d2e7c00f5605c2b016585ec87dee0fd6
 
-PODFILE CHECKSUM: 7671e551e7dc138b05e8bf618c55ba95b335a627
+PODFILE CHECKSUM: 39cf761d9b4e172d6ef8b2102d7511b54df7062b
 
 COCOAPODS: 1.15.2
