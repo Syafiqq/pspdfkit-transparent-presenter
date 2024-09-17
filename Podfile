@@ -8,5 +8,6 @@ target 'CanvasTest001' do
   # Pods for CanvasTest001
   pod 'Canvas+'
   pod 'PSPDFKit', podspec: 'https://my.pspdfkit.com/pspdfkit-ios/latest.podspec'
+  pod 'SnapKit'
 
 end
