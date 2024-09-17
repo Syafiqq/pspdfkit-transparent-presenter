@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '13.0'
+platform :ios, '15.0'
 
 target 'CanvasTest001' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -7,5 +7,6 @@ target 'CanvasTest001' do
 
   # Pods for CanvasTest001
   pod 'Canvas+'
+  pod 'PSPDFKit', podspec: 'https://my.pspdfkit.com/pspdfkit-ios/latest.podspec'
 
 end
