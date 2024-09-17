@@ -11,6 +11,15 @@ import PSPDFKitUI
 
 class ViewController: UIViewController {
 
+    private var documentURL: URL? {
+        try? FileManager.default.url(
+            for: .documentDirectory,
+            in: .userDomainMask,
+            appropriateFor: nil,
+            create: true
+        )
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -20,19 +29,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        // Update to use your document name.
-        let fileURL = Bundle.main.url(forResource: "blank", withExtension: "pdf")!
-        let document = Document(url: fileURL)
-
-        // The configuration closure is optional and allows additional customization.
-        let pdfController = PDFViewController(document: document) {
-            $0.isPageLabelEnabled = false
-        }
-
-        let nav = UINavigationController(rootViewController: pdfController)
-        nav.modalPresentationStyle = .fullScreen
-        // Present the PDF view controller within a `UINavigationController` to show built-in toolbar buttons.
-        present(nav, animated: true)
+        print("CurrentLog - path - \(documentURL?.path ?? "nil")")
     }
 }
 
