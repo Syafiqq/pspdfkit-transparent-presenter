@@ -122,6 +122,8 @@ class ViewController1: UIViewController {
         view.backgroundColor = .white
         pdfController.view.backgroundColor = .clear
         pdfController.pdfController.view.backgroundColor = .clear
+        // TODO: Transparent presenter view
+        // pdfController.pdfController.presenterView.backgroundColor = .clear // prevent to mirror the pdf view background color
         pdfController.didMove(toParent: self)
 
         // If not in document view mode, it'll be weird.
